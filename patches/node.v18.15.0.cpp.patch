@@ -328,19 +328,6 @@ index 0b5c3ff5ba..09776d4b1f 100644
        ['OS=="aix"', {
          'ldflags': [
            '-Wl,-bnoerrmsg',
-diff --git node/src/inspector_agent.cc node/src/inspector_agent.cc
-index 91e7beeaa0..43a8a5d7c6 100644
---- node/src/inspector_agent.cc
-+++ node/src/inspector_agent.cc
-@@ -692,8 +692,6 @@ bool Agent::Start(const std::string& path,
-                               StartIoThreadAsyncCallback));
-     uv_unref(reinterpret_cast<uv_handle_t*>(&start_io_thread_async));
-     start_io_thread_async.data = this;
--    // Ignore failure, SIGUSR1 won't work, but that should not block node start.
--    StartDebugSignalHandler();
- 
-     parent_env_->AddCleanupHook([](void* data) {
-       Environment* env = static_cast<Environment*>(data);
 diff --git node/src/node.cc node/src/node.cc
 index 1067dee74c..8b32a10d08 100644
 --- node/src/node.cc
@@ -354,21 +341,6 @@ index 1067dee74c..8b32a10d08 100644
    if (env->worker_context() != nullptr) {
      return StartExecution(env, "internal/main/worker_thread");
    }
-@@ -503,14 +505,6 @@ static void PlatformInit(ProcessInitializationFlags::Flags flags) {
-   }
- 
-   if (!(flags & ProcessInitializationFlags::kNoDefaultSignalHandling)) {
--#if HAVE_INSPECTOR
--    sigset_t sigmask;
--    sigemptyset(&sigmask);
--    sigaddset(&sigmask, SIGUSR1);
--    const int err = pthread_sigmask(SIG_SETMASK, &sigmask, nullptr);
--    CHECK_EQ(err, 0);
--#endif  // HAVE_INSPECTOR
--
-     ResetSignalHandlers();
-   }
- 
 diff --git node/src/node_contextify.cc node/src/node_contextify.cc
 index ed552ddd55..f757ac3b49 100644
 --- node/src/node_contextify.cc
@@ -549,18 +521,6 @@ index d486bbc31c..eb806b1ce4 100644
 +
 +  return adjacent(c, nargv);
 +}
-diff --git node/src/node_options.cc node/src/node_options.cc
-index 6eabf78f1b..e9be1ed5ba 100644
---- node/src/node_options.cc
-+++ node/src/node_options.cc
-@@ -308,6 +308,7 @@ void Parse(
- // TODO(addaleax): Make that unnecessary.
- 
- DebugOptionsParser::DebugOptionsParser() {
-+  return;
-   AddOption("--inspect-port",
-             "set host:port for inspector",
-             &DebugOptions::host_port,
 diff --git node/tools/icu/icu-generic.gyp node/tools/icu/icu-generic.gyp
 index db45e6fbdf..3e39f1fbdf 100644
 --- node/tools/icu/icu-generic.gyp

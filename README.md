@@ -1,3 +1,9 @@
+## Paima-Studios
+
+Added debug support for node v18.15.0
+
+## Original Readme
+
 A utility to fetch or build patched Node binaries used by [pkg](https://github.com/vercel/pkg) to generate executables. This repo hosts prebuilt binaries in [Releases](https://github.com/vercel/pkg-fetch/releases).
 
 ## Binary Compatibility

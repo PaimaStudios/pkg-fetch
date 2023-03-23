@@ -31,13 +31,6 @@ function getMajor(nodeVersion: string) {
 function getConfigureArgs(major: number, targetPlatform: string): string[] {
   const args: string[] = [];
 
-  // first of all v8_inspector introduces the use
-  // of `prime_rehash_policy` symbol that requires
-  // GLIBCXX_3.4.18 on some systems
-  // also we don't support any kind of debugging
-  // against packaged apps, hence v8_inspector is useless
-  args.push('--without-inspector');
-
   if (hostPlatform === 'alpine') {
     // Statically Link against libgcc and libstdc++ libraries. See vercel/pkg#555.
     // libgcc and libstdc++ grant GCC Runtime Library Exception of GPL

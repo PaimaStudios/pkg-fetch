@@ -1,5 +1,5 @@
 {
-  "name": "pkg-fetch",
+  "name": "pkg-fetch-dev",
   "version": "3.4.2",
   "description": "Compiles and stores base binaries for pkg",
   "main": "lib-es5/index.js",
@@ -50,8 +50,7 @@
     "lint": "eslint lib",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
-    "start": "node lib-es5/bin.js",
-    "applyPatches": "node lib-es5/apply-patches.js"
+    "start": "node lib-es5/bin.js"
   },
   "prettier": {
     "singleQuote": true
